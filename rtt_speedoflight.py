@@ -55,10 +55,14 @@ def measure_rtt(url: str, probes: int = PROBES) -> dict:
     samples = []
     lost    = 0
 
+    https_url = url.replace("http://", "https://")
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; RTT-Probe/1.0)"}
+
     for _ in range(probes):
         try:
             start = time.perf_counter()
-            urllib.request.urlopen(url, timeout=3)
+            requests.get(https_url, timeout=10, headers=headers,
+                         allow_redirects=True)
             elapsed_ms = (time.perf_counter() - start) * 1000
             samples.append(elapsed_ms)
         except Exception:

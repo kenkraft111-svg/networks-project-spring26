@@ -1,14 +1,13 @@
 1. Which city has the highest inefficiency ratio? Look it up on [submarinecablemap.com](https://submarinecablemap.com) — what cables serve it and how does that explain your result?
 
-Based on the measurements collected, London had the highest inefficiency ratio of 3.89, which triggered the high-inefficiency flag because the ratio is greater than 3.0. Frankfurt was close behind at 3.16. It was surprising when I first looked at the result because London is actually the closest destination in the list, so I expected it to have a low ratio. Looking at submarinecablemap.com, there are many cables connecting the US to the UK — including AEConnect-1, Apollo, Atlantic Crossing-1, and FLAG Atlantic-1 — so cable availability is not the issue. After some research, I have discovered that the real reason is that for short distances, the theoretical minimum RTT is very small (only ~52 ms for London). HTTP measurement adds extra overhead on top of physical travel time, including TCP connection setup and server processing. For farther cities like Tokyo and Sydney in the list, this overhead is a small fraction of the total RTT, so the ratio stays low. But for London, even a small amount of overhead pushes the ratio way above 1.0. This means closer cities are not necessarily more "efficient" but instead, they are just more sensitive to overhead.
+Ba
 
 2. Which city is closest to the theoretical minimum? What does that tell you about routing infrastructure there?
 
-Sydney had the closest ratio to the theoretical minimum among the reachable cities, with a ratio of 1.26 (measured: 203.7 ms, theoretical: 162.3 ms). Singapore was also efficient at 1.40. Considering Sydney is the furthist city in the list, this is somewhat counterintuitive. After some reserarch, I have found out that Google operates major infrastructure in Australia. And therefore, when the request form this program hits google.com.au, it might have been served by Google's own private backbone network, which routes traffic over privately owned, highly optimized fiber links with minimal handoffs between different ISPs across the earth. So because Google owns its own submarine cables connecting the US to Australia, the packet doesn't have to jump between multiple different networks, making the routing inefficincy drop dramaticlally compared to paths that must pass through multiple ISPs and exchange points.
+Sydne
 
 
 3. Your packet to Lagos almost certainly routes through Europe first. Why does Africa route through Europe, and what would need to change to fix it?
 
-My packet to Lagos most likely went Burlington -> New York -> transatlantic cable -> Europe -> down the West African coast -> Lagos. Therefore, extra long trip happens because all major submarine cables serving West Africa connect to Europe first, not directly to the US. To fix this, a direct US–West Africa submarine cable would be needed, with stronger internet exchange points inside Africa so that African networks can connect to each other without routing through Europe first.
-
+My packet 
  
